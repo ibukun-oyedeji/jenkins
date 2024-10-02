@@ -25,7 +25,14 @@ pipeline {
             echo 'Playbook executed successfully!'
         }
         failure {
+         
             echo 'Playbook execution failed.'
+ 
         }
+        always {
+            // Clean up the cloned repository
+            cleanWs()
+        } 
     }
 }
+
