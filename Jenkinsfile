@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Checkout your repository containing the Ansible playbook
-                git 'https://github.com/ibukun-oyedeji/ansible.git'
+                sh 'git clone https://github.com/ibukun-oyedeji/ansible.git'
             }
         }
 
