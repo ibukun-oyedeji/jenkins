@@ -14,6 +14,7 @@ pipeline {
             steps {
                 // Run the Ansible playbook
                 sh 'cd ansible'
+                sh 'ls -la'
                 sh 'ansible-playbook ../ibukun.yaml'
             }
         }
