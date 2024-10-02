@@ -1,0 +1,38 @@
+---
+- name: Install Docker and Deploy Airflow on slave hosts
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Install prerequisite packages for Docker
+      ansible.builtin.package:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Add Docker's official GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Add Docker repository
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install Docker
+      ansible.builtin.package:
+        name: docker-ce
+        state: present
+
+    - name: Ensure Docker service is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
