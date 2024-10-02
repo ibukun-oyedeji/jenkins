@@ -15,9 +15,9 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 // Run the Ansible playbook
-                sh 'cd ansible'
+                sh 'cd ansible && ansible-playbook ../ibukun.yaml'
                 sh 'ls -la'
-                sh 'ansible-playbook ../ibukun.yaml'
+               // sh ''
             }
         }
     }
